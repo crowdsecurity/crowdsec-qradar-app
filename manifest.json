@@ -1,0 +1,77 @@
+{
+  "name": "CrowdSec",
+  "description": "App for interacting with CrowdSec CTI",
+  "version": "0.0.1",
+  "image": "qradar-app-base:2.1.12",
+  "resources": {
+    "memory": 100
+  },
+  "uuid": "3a4212e8-3dff-4433-9584-b5b112e3ac87",
+  "gui_actions": [
+    {
+      "description": "CrowdSec IP Lookup",
+      "text": "CrowdSec IP Lookup",
+      "javascript": "crowdseclookup(result)",
+      "rest_method": "right_click_ip",
+      "groups": [
+        "ipPopup"
+      ],
+      "id": "RightClickButton",
+      "icon": "static/logosmall.png"
+    }
+  ],
+  "configuration_pages": [
+    {
+      "url": "config",
+      "required_capabilities": [
+        "ADMIN"
+      ],
+      "text": "CrowdSec App Settings",
+      "description": "CrowdSec configuration page",
+      "icon": "static/appIcon.png"
+    }
+  ],
+  "page_scripts": [
+    {
+      "page_id": "*",
+      "app_name": "*",
+      "scripts": [
+        "static/js/crowdsec_script.js"
+      ]
+    }
+  ],
+  "rest_methods": [
+    {
+      "url": "/smoke",
+      "method": "GET",
+      "argument_names": [
+        "context"
+      ],
+      "name": "smoke"
+    },
+    {
+      "url": "/right_click_ip",
+      "method": "GET",
+      "argument_names": [
+        "context"
+      ],
+      "name": "right_click_ip"
+    },
+    {
+      "url": "/config",
+      "method": "GET",
+      "argument_names": [
+        "context"
+      ],
+      "name": "config"
+    },
+    {
+      "url": "/updateConfig",
+      "method": "POST",
+      "argument_names": [
+        "context"
+      ],
+      "name": "updateConfig"
+    }
+  ]
+}

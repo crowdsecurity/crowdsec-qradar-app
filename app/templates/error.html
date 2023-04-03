@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Error</title>
+    <!-- <link rel="stylesheet" href="{{ q_get_app_base_url }}static/gfonts.css"> -->
+    <!-- Custom styles for dark theme -->
+
+    <link rel="preconnect" href="{{ q_get_app_base_url }}" crossorigin>
+    <link rel="preload" href="{{ q_get_app_base_url }}static/fonts/Montserrat-Regular.ttf" as="font" type="font/ttf" crossorigin>
+
+    <style>
+      body {
+        background-color: #1f2937;
+        color: #f8f9fa;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+        margin: 0;
+        padding: 0;
+      }
+      @font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('{{ q_get_app_base_url }}static/fonts/Montserrat-Regular.ttf');
+}
+
+      .navbar {
+        background-color: #111827;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+      }
+
+      .navbar-logo {
+        height: 40px;
+        width: auto;
+      }
+
+      .navbar-ip {
+        margin-left: 10px;
+        font-size: 25px;
+      }
+
+      .navbar-left {
+        display: flex;
+        align-items: center;
+      }
+
+      .popup {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 30px;
+        background-color: #1f2937;
+        border-radius: 3mm;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        z-index: 9999;
+        text-align: center;
+        width: 72%;
+        height: 25%;
+        overflow: auto;
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      .popup::-webkit-scrollbar {
+        width: 0px;
+        background-color: transparent #918bca;
+        /* border-radius: px; */
+      }
+
+      .popup::-webkit-scrollbar-thumb {
+        width: 0px;
+        height: 0 px;
+        background-color: transparent #918bca;
+        /* border-radius: 4px; */
+      }
+    </style>
+  </head>
+  <body onload="document.getElementById('popup').style.display='block'">
+    <header>
+      <nav class="navbar">
+        <div class="navbar-left">
+          <img class="navbar-logo" src="{{ q_get_app_base_url }}static/crowdseclogo.png" alt="Logo" />
+          <span class="forward-slash" style="font-size:35px ; color:#595f6a; margin-left: 5px;">/</span>
+          <b>
+            <span class="navbar-ip" id="navd">{{ip}}</span>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <b>
+        <b>
+          <b>
+            <div id="popup" class="popup" style="display: block;">
+              <h1 id="popup-title" style="color: rgb(241, 36, 36);">Error {{status}}</h1>
+              <p id="popup-body" style="color: #918bca;">{{error_msg}}</p>
+          </b>
+          </div>
+          <b></b>
+        </b>
+      </b>
+      </b>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content>
+   <qradarversion>2020.11.0.20210517144015</qradarversion>
+   <application_zip>
+      <filedata>/CrowdSec/1124.zip</filedata>
+      <id>/store/qapp/1124/1124.zip</id>
+   </application_zip>
+   <installed_application>
+      <image>qradar-app-base:2.0.5</image>
+      <installed_by />
+      <memory>100</memory>
+      <single_instance_only>false</single_instance_only>
+      <manifest>{"name":"CrowdSec","description":"App for interacting with CrowdSec CTI","image":"qradar-app-base:2.1.12","version":"1.0","uuid":"3a4212e8-3dff-4433-9584-b5b112e3ac87","resources":{"memory":100},"console_ip":"","areas":[{"id":"editorArea_1680073457","text":"CrowdSec Development","description":"CrowdSec Development","url":"app_editor/editor","required_capabilities":["ADMIN"]}],"rest_methods":[{"name":"smoke","method":"GET","url":"/smoke","argument_names":["context"]},{"name":"right_click_ip","method":"GET","url":"/right_click_ip","argument_names":["context"]},{"name":"config","method":"GET","url":"/config","argument_names":["context"]},{"name":"updateConfig","method":"POST","url":"/updateConfig","argument_names":["context"]}],"configuration_pages":[{"text":"CrowdSec App Settings","description":"CrowdSec configuration page","icon":"static/appIcon.png","url":"config","required_capabilities":["ADMIN"]}],"gui_actions":[{"id":"RightClickButton","text":"CrowdSec IP Lookup","description":"CrowdSec IP Lookup","icon":"static/appIcon.png","rest_method":"right_click_ip","javascript":"crowdseclookup(result)","groups":["ipPopup"]}],"page_scripts":[{"app_name":"*","page_id":"*","scripts":["static/js/crowdsec_script.js","static/qjslib/qappfw.min.js"]}]}</manifest>
+      <description>App for interacting with CrowdSec CTI</description>
+      <ootb_install>false</ootb_install>
+      <multitenancy_safe>false</multitenancy_safe>
+      <zip_source_file_path>/store/qapp/1124/1124.zip</zip_source_file_path>
+      <image_repo>qapp/1124:1.0-20230329070425</image_repo>
+      <name>CrowdSec</name>
+      <installed_on>1680073457929</installed_on>
+      <id>1124</id>
+      <cpu_share>0.1</cpu_share>
+      <status>COMPLETED</status>
+   </installed_application>
+</content>

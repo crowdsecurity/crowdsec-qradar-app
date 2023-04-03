@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>CrowdSec</title>
+  <link rel="preconnect" href="{{ q_get_app_base_url }}" crossorigin>
+  <link rel="preload" href="{{ q_get_app_base_url }}static/fonts/Montserrat-Regular.ttf" as="font" type="font/ttf"
+    crossorigin>
+  <style>
+    body {
+      background-color: #1f2937;
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      margin: 0;
+      padding: 0;
+    }
+
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url('{{ q_get_app_base_url }}static/fonts/Montserrat-Regular.ttf');
+    }
+
+    /* fonts */
+    #font {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .expand-view {
+      display: inline-block;
+      padding: 10px;
+      cursor: pointer;
+      background-color: #1f2937;
+
+      position: unset;
+      right: 50px;
+    }
+
+    .expand-view-arrow {
+      display: inline-block;
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 10px solid #918bca;
+      position: relative;
+      right: 1px;
+    }
+
+    .collapse-view-arrow {
+      display: inline-block;
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 10px solid #918bca;
+      /* change to border-bottom */
+      position: relative;
+      top: 1px;
+      /* change to top */
+    }
+
+    .navbar {
+      background-color: #111827;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      position: relative;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .navbar::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: #252f3e;
+    }
+
+    .navbar-logo {
+      height: 40px;
+      width: auto;
+    }
+
+    .navbar-ip {
+      margin-left: 10px;
+      font-size: 25px;
+    }
+
+    .navbar-left {
+      display: flex;
+      align-items: center;
+    }
+
+    .container-header{
+      margin-left: 8mm;
+      margin-right:8mm;
+      margin-top:13px ;
+      color:#a3a7af ;
+    }
+    .navbar-score {
+      font-size: 17px;
+      display: inline-block;
+      height: 5mm;
+      border-radius: 5px;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px;
+      margin-top: 10px;
+      position: relative;
+      box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .container2 {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px;
+      padding-bottom: 4px;
+      margin-top: 0px;
+      box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.5);
+    }
+
+    .range,
+    .as,
+    .known {
+      margin-right: 20px;
+    }
+
+    .known-tag{
+      color: rgb(155, 24, 188);
+      border: 2px solid rgb(155, 24, 188);
+      border-radius: 5px;
+      padding: 4px;
+      margin-right: 8px;
+      margin-bottom: 3px;
+      display: inline-block;
+    }
+
+    .bg-score {
+      text-align: right;
+      font-size: 20px;
+    }
+
+    .score-box-green {
+      border: 2px solid rgb(28, 202, 28);
+      padding: 10px;
+      display: inline-block;
+      color: rgb(34, 202, 34);
+    }
+
+    .score-box-yellow {
+      border: 2px solid rgb(190, 218, 29);
+      padding: 10px;
+      display: inline-block;
+      color: rgb(190, 218, 29);
+    }
+
+    .score-box-red {
+      border: 2px solid rgb(191, 34, 34);
+      padding: 10px;
+      display: inline-block;
+      color: rgb(191, 34, 34);
+    }
+
+    .category {
+      border-left: 5px solid rgb(155, 24, 188);
+      background-color: #1f2937;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      color: #fff;
+      margin-left: 8mm;
+      margin-right: 8mm;
+      border: 2px solid #283240 ;
+      border-left: 4px solid #771ec0;
+    }
+
+    .category-header {
+      color: #b2b6bd;
+    }
+
+    .category-p{
+      color: #a6abb2;
+    }
+
+    .attackbox {
+      border-left: 5px solid rgb(155, 24, 188);
+      background-color: #1f2937;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      color: #fff;
+    }
+
+    .category h3 {
+      margin-top: 0;
+      font-size: 18px;
+      font-weight: bold;
+      color: #f0eeee;
+    }
+
+    .category p {
+      margin-bottom: 0;
+      font-size: 14px;
+      color: #969191;
+    }
+
+    .forward-slash {
+      margin-left: 5px;
+    }
+
+    /*      */
+    .inline {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .scroller {
+      /* width: 300px; */
+      max-height: 300px;
+      overflow-y: scroll;
+
+    }
+
+    .scroller::-webkit-scrollbar {
+      height: 12px;
+      width: 12px;
+      background: #918bca;
+      border-radius: 5px;
+    }
+
+    .scroller::-webkit-scrollbar-thumb {
+      background: #473cae;
+      /* height: 40px; */
+      /* width: 10px; */
+      -webkit-border-radius: 1ex;
+      -webkit-box-shadow: 0px 1px 2px #918bca;
+    }
+
+    .scroller::-webkit-scrollbar-corner {
+      background: #1f2937;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="navbar-left">
+        <img class="navbar-logo" src="{{ q_get_app_base_url }}static/crowdseclogo.png" alt="Logo" />
+        <span class="forward-slash" style="font-size:35px ; color:#595f6a">/</span>
+        <b>
+          <span class="navbar-ip" id="navd"> {{data.ip}}</span>
+      </div>
+      <div class="navbar-right" style=" color: #616a77;">
+        <span>Total Score: </span>
+        <b>
+          <span class='navbar-score {{ "score-box-green" if data.scores.overall.total <= 2 else "score-box-yellow" if data.scores.overall.total <= 3 else "score-box-red" }}' id="score-box" style=" font-family: 'Montserrat', sans-serif;">{{data.scores.overall.total}} / 5</span>
+        </b>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <div class="super">
+      <div class="container">
+        <div class="left">
+          <div class="range" style="font-family: 'Montserrat', sans-serif; color: #616a77">Range: <b>
+              <span id="range" style="color:#e1e6ec"> {{ data.ip_range if data.ip_range else "N/A" }}</span>
+              {% if data.ip_range_score %}
+                <span id="ipscore" style="color:#616190">
+                {% if data.ip_range_score <= 2 %}
+                  - IP's range is not aggressive.
+                {% elif data.ip_range_score <= 3 %}
+                  - IP's range is moderately aggressive.
+                {% else %}
+                  - IP's range is very aggressive.
+                {% endif %}
+                </span>
+              {% endif %}
+          </div>
+          <br />
+          <div class="as" style=" color: #616a77">AS: <b>
+              <span id="as" style="color:#e1e6ec">{{ data.as_name if data.as_name else "N/A" }}</span>
+          </div>
+          <br />
+          <div class="known" style=" color: #616a77">Known for: <span id="known">
+            {% for behaviour in data.behaviors %}
+              <span class="known-tag">
+                  {{ behaviour.label }}
+              </span>
+            {% endfor %}
+          </span>
+          </div>
+        </div>
+        <div class="right">
+          <div class="vc" id="vc" style="text-align: right;">
+            <a id="console-link" href="https://app.crowdsec.net/cti/{{data.ip}}" target="_blank" rel="noopener noreferrer"
+              style=" position: relative;right: 1.5mm;color:#616190;">View In Console</a>
+          </div>
+          <br>
+          <br>
+          <br>
+          <div class="bg-score" style=" font-size: medium; color: #616a77; "> Background noise score : <span
+              class='navbar-score {{ "score-box-green" if data.background_noise_score <= 4 else "score-box-yellow" if data.background_noise_score <= 7 else "score-box-red" }}' id="bg"> {{data.background_noise_score}} / 10</span>
+          </div>
+        </div>
+      </div>
+      <div class="container2">
+        <div style="margin-left: 4mm; margin-right:8mm; color: #dfe2e6">Raw Response (JSON) : <span class="inline">
+            <button onclick="copyData()"
+              style="background-color:#1f2937; border: 2px solid #785e29; color:#f0a71b; padding: 8px 16px; border-radius: 2mm; font-family: 'Montserrat', sans-serif; cursor:pointer"><b>Copy
+                JSON</b></button></span></div>
+        <div class="left"> <span id="expand-view" class="expand-view" onclick="toggleAccordion()">
+            <span id="expand-view-text" style="color: #918bca; ">Show </span>
+            <span id="expand-view-arrow" class="expand-view-arrow"></span>
+          </span></p>
+        </div>
+      </div>
+      <div>
+        <div class="scroller" id="accordion" style="display: none;">
+          <pre id="json-data" style="background-color: #1e293b; color: #dfe2e6; padding: 16px; border-radius: 4px;margin-top: 4px; border: 2px solid #4e6180; white-space: pre-wrap;
+              max-width: 100%;
+              overflow-x: auto;"></pre>
+        </div>
+      </div>
+  </main>
+
+  {% if data.classifications and data.classifications.classifications   %}
+  <h2 class="container-header">Categories</h2>
+  <div>
+    {% for classification in data.classifications.classifications %}
+    <div class="category">
+      <h3 class="category-header">{{classification.label}}</h3>
+      <p class="category-p">{{classification.description}}</p>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if data.attack_details %}
+  <h2 class="container-header">Attack details</h2>
+  <div>
+    {% for attack_detail in data.attack_details %}
+    <div class="category">
+      <h3 class="category-header">{{attack_detail.label}}</h3>
+      <p class="category-p">{{attack_detail.description}}</p>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if data.references %}
+  <h2 class="container-header">References</h2>
+  <div>
+    {% for reference in data.references %}
+    <div class="category">
+      <h3 class="category-header">{{reference.label}}</h3>
+      <p class="category-p">{{reference.description}}</p>
+      {% for link in reference.references %}
+      <p><a style="color:#616190" href="{{link}}">{{link}} </a></p>
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+  </div>
+  <script>
+    const data = JSON.parse('{{ data|tojson|safe }}');
+    const toggleAccordion = () => {
+      const accordion = document.getElementById("accordion");
+      const arrow = document.getElementById("expand-view-arrow");
+      const expandtxt = document.getElementById("expand-view-text");
+      if (accordion.style.display === "none") {
+        const jsonData = document.getElementById("json-data");
+        jsonData.innerText = JSON.stringify(data, null, 2);
+        accordion.style.display = "block";
+        arrow.classList.remove("expand-view-arrow");
+        arrow.classList.add("collapse-view-arrow");
+        expandtxt.innerHTML = "Hide ";
+      } else {
+        accordion.style.display = "none";
+        arrow.classList.remove("collapse-view-arrow");
+        arrow.classList.add("expand-view-arrow");
+        expandtxt.innerHTML = "Show ";
+
+      }
+    }
+
+    const copyData = () => {
+      const jsonString = JSON.stringify(data);
+      navigator.clipboard.writeText(jsonString).then(() => {
+        alert("JSON copied to clipboard!");
+      }).catch(err => {
+        console.error("Failed to copy JSON: ", err);
+      });
+    }
+  </script>
+</body>
+
+</html>

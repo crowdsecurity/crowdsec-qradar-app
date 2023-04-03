@@ -1,0 +1,23 @@
+{
+	"_id": "1e808a34c0c791de8342919fbb7e29e7",
+	"doc": {
+		"extension_manifest": {
+			"locale": {
+				"en-US": {
+					"extension.name": "CrowdSec",
+					"extension.long.description": "QRadar App which allows users to leverage CrowdSec's CTI to get information about IP as seen by CrowdSec's network. This is enabled via a right click on IP GUI action. The intelligence includes:\n\n1. Types of attacks the IP has been observed performing.\n2. Background Noise Score. This can be used to know whether the particular IP is only targeting your infrastructure or is targeting others too. \n3. Aggressivity which quantifies frequency of attacks.\n4. Other fields like Geolocation details, AS details, sighting details etc"
+				}
+			},
+			"extension_name": "extension.name",
+			"extension_long_description": "extension.long.description",
+			"supported_language_set": [
+				"en-US"
+			],
+			"min_qradar_version": "2020.11.0",
+			"version": "0.0.1",
+			"authored_by": "CrowdSec Support",
+			"authored_by_email": "integrations-ssa@crowdsec.net",
+			"package_size": "6124079"
+		}
+	}
+}
