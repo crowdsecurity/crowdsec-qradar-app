@@ -2,7 +2,6 @@
 <html>
   <head>
     <title>Enter Your API Key</title>
-  
     <link rel="preconnect" href="{{ q_get_app_base_url }}" crossorigin>
     <link rel="preload" href="{{ q_get_app_base_url }}static/fonts/Montserrat-Regular.ttf" as="font" type="font/ttf" crossorigin>
     <style>
@@ -134,7 +133,7 @@
       <form id="api-key-form" action="{{ q_url_for('viewsbp.update_config') }}" method="POST">
         <div style="margin-bottom: 0.5rem;">
           <label for="api-key">API Key</label>
-          <input type="text" id="api-key" name="api-key" placeholder="{{api_key}}">
+          <input type="text" pattern=".{35,}" id="api-key" name="api-key" placeholder="{{api_key}}">
         </div>
         <button type="submit">Submit</button>
       </form>

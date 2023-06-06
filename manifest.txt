@@ -14,7 +14,7 @@
 				"en-US"
 			],
 			"min_qradar_version": "2020.11.0",
-			"version": "0.0.1",
+			"version": "1.0.0",
 			"authored_by": "CrowdSec Support",
 			"authored_by_email": "integrations-ssa@crowdsec.net",
 			"package_size": "6124079"
