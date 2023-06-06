@@ -133,7 +133,7 @@
       <form id="api-key-form" action="{{ q_url_for('viewsbp.update_config') }}" method="POST">
         <div style="margin-bottom: 0.5rem;">
           <label for="api-key">API Key</label>
-          <input type="text" pattern=".{35,}" id="api-key" name="api-key" placeholder="{{api_key}}">
+          <input type="text" pattern=".{35,}" required title="35 characters minimum" id="api-key" name="api-key" placeholder="{{api_key}}">
         </div>
         <button type="submit">Submit</button>
       </form>
