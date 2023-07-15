@@ -6,8 +6,13 @@
 
 __author__ = 'IBM'
 
+from packaging import version
+
 from flask import Flask
-from qpylib import qpylib
+from qpylib import qpylib, log_qpylib, __version__
+
+def suppress_syslog():
+    return None
 
 # Flask application factory.
 def create_app():
@@ -31,7 +36,11 @@ def create_app():
     qflask.add_template_global(qpylib.q_url_for, 'q_url_for')
 
     # Initialize logging.
-    qpylib.create_log()
+    if version.parse(__version__) >= version.parse('2.0.5'):
+        qpylib.create_log(False)
+    else:
+        log_qpylib._get_address_for_syslog = suppress_syslog
+        qpylib.create_log()
 
     # To enable app health checking, the QRadar App Framework
     # requires every Flask app to define a /debug endpoint.
