@@ -2,7 +2,7 @@
   "name": "CrowdSec",
   "description": "App for interacting with CrowdSec CTI",
   "version": "1.0.0",
-  "image": "qradar-app-base:3.0.10",
+  "image": "qradar-app-base:2.1.12",
   "resources": {
     "memory": 100
   },
