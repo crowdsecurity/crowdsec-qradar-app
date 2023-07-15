@@ -4,11 +4,12 @@
 # US Government Users Restricted Rights - Use, duplication or
 # disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
 
-import json
+import ipaddress
 import requests
 
-from flask import Blueprint, render_template, current_app, send_from_directory, request, redirect, jsonify
-from qpylib.encdec import Encryption, EncryptionError
+
+from flask import Blueprint, render_template, current_app, send_from_directory, request, redirect, jsonify, abort
+from qpylib.encdec import Encryption
 from qpylib import qpylib
 
 # pylint: disable=invalid-name
@@ -47,7 +48,12 @@ def config():
 @viewsbp.route("/right_click_ip",  methods=["GET"])
 def right_click_ip():
     ip = request.args.get("context")
-    return json.dumps({"ip": ip, "base_url": qpylib.get_app_base_url()})
+    try:
+        ipaddress.ip_address(ip)
+    except Exception as e:
+        return abort(500)
+
+    return jsonify({"ip": ip, "base_url": qpylib.get_app_base_url()})
 
 @viewsbp.route("/smoke")
 def lookup_in_smoke():

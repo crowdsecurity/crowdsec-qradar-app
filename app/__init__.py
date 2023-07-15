@@ -8,6 +8,10 @@ __author__ = 'IBM'
 
 from packaging import version
 
+import secrets # For generating a new secret key
+from flask_wtf.csrf import CSRFProtect # To add CSRF protection
+from qpylib.encdec import Encryption, EncryptionError # To handle storing the secret key securely
+
 from flask import Flask
 from qpylib import qpylib, log_qpylib, __version__
 
@@ -18,6 +22,24 @@ def suppress_syslog():
 def create_app():
     # Create a Flask instance.
     qflask = Flask(__name__)
+
+    csrf = CSRFProtect()
+    csrf.init_app(qflask)
+
+    # Generate or retrieve a secret key
+    secret_key = ""
+    try:
+        # Read in secret key
+        secret_key_store = Encryption({'name': 'secret_key', 'user': 'shared'})
+        secret_key = secret_key_store.decrypt()
+    except EncryptionError:
+        # If secret key file doesn't exist/fail to decrypt it,
+        # generate a new random password for it and encrypt it
+        secret_key = secrets.token_urlsafe(64)
+        secret_key_store = Encryption({'name': 'secret_key', 'user': 'shared'})
+        secret_key_store.encrypt(secret_key)
+
+    qflask.config["SECRET_KEY"] = secret_key
 
     # Retrieve QRadar app id.
     qradar_app_id = qpylib.get_app_id()

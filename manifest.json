@@ -2,7 +2,7 @@
   "name": "CrowdSec",
   "description": "App for interacting with CrowdSec CTI",
   "version": "1.0.0",
-  "image": "qradar-app-base:2.1.12",
+  "image": "qradar-app-base:3.0.10",
   "resources": {
     "memory": 100
   },
@@ -63,7 +63,8 @@
       "argument_names": [
         "context"
       ],
-      "name": "config"
+      "name": "config",
+      "required_capabilities": ["ADMIN"]
     },
     {
       "url": "/updateConfig",
@@ -71,7 +72,8 @@
       "argument_names": [
         "context"
       ],
-      "name": "updateConfig"
+      "name": "updateConfig",
+      "required_capabilities": ["ADMIN"]
     }
   ]
 }

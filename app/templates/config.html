@@ -131,6 +131,7 @@
     <main>
       <h1>Enter Your API Key</h1>
       <form id="api-key-form" action="{{ q_url_for('viewsbp.update_config') }}" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
         <div style="margin-bottom: 0.5rem;">
           <label for="api-key">API Key</label>
           <input type="text" pattern=".{35,}" required title="35 characters minimum" id="api-key" name="api-key" placeholder="{{api_key}}">
