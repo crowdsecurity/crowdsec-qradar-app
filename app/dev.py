@@ -8,18 +8,22 @@ from flask import Blueprint, request
 from qpylib import qpylib
 
 # pylint: disable=invalid-name
-devbp = Blueprint('devbp', __name__, url_prefix='/dev')
+devbp = Blueprint("devbp", __name__, url_prefix="/dev")
+
 
 # This endpoint sets the app's minimum level for qpylib logging.
 # Example call using curl:
 #   curl -X POST -F "level=DEBUG" http://localhost:<port>/dev/log_level
-@devbp.route('/log_level', methods=['POST'])
+@devbp.route("/log_level", methods=["POST"])
 def log_level():
-    level = request.form['level'].upper()
-    levels = ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
+    level = request.form["level"].upper()
+    levels = ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
 
     if level in levels:
         qpylib.set_log_level(level)
-        return 'log level set to {0}'.format(level)
+        return "log level set to {0}".format(level)
 
-    return 'level value {0} missing or unsupported. Use one of {1}'.format(level, levels), 42
+    return (
+        "level value {0} missing or unsupported. Use one of {1}".format(level, levels),
+        42,
+    )
